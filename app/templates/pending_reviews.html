@@ -1,0 +1,13 @@
+<!doctype html>
+<title>Pending Reviews</title>
+<h2>Pending Reviews</h2>
+<ul>
+{% for review in reviews %}
+    <li>
+        <b>{{ review['App'] }}</b>: {{ review['Review'] }} (by {{ review['User'] }})
+        <form method="post" action="{{ url_for('supervisor.approve', review_id=review['id']) }}" style="display:inline;">
+            <button type="submit">Approve</button>
+        </form>
+    </li>
+{% endfor %}
+</ul>

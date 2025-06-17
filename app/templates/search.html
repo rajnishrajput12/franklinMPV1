@@ -1,0 +1,28 @@
+<!doctype html>
+<title>Search Apps</title>
+<h2>Search for an App</h2>
+<form action="{{ url_for('search.search') }}" method="get">
+    <input type="text" name="q" id="search-box" autocomplete="off" placeholder="Type app name..." required>
+    <button type="submit">Search</button>
+</form>
+<ul id="suggestions"></ul>
+<script>
+const searchBox = document.getElementById('search-box');
+const suggestionsList = document.getElementById('suggestions');
+searchBox.addEventListener('input', function() {
+    if (searchBox.value.length < 3) {
+        suggestionsList.innerHTML = '';
+        return;
+    }
+    fetch(`/suggest?q=${encodeURIComponent(searchBox.value)}`)
+    .then(res => res.json())
+    .then(suggestions => {
+        suggestionsList.innerHTML = '';
+        suggestions.forEach(s => {
+            const li = document.createElement('li');
+            li.textContent = s;
+            suggestionsList.appendChild(li);
+        });
+    });
+});
+</script>

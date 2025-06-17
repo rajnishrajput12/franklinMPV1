@@ -1,0 +1,11 @@
+<!doctype html>
+<title>Results for {{ query }}</title>
+<h2>Results for "{{ query }}"</h2>
+<ul>
+{% for app in results %}
+    <li>
+        <a href="{{ url_for('reviews.app_reviews', app_name=app['App']) }}">{{ app['App'] }}</a>
+        ({{ app['Category'] }})
+    </li>
+{% endfor %}
+</ul>

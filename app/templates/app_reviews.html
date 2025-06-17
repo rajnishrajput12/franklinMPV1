@@ -1,0 +1,28 @@
+<!doctype html>
+<title>{{ app['App'] }} - Reviews</title>
+<h2>{{ app['App'] }}</h2>
+<p>{{ app['Category'] }} | {{ app['Rating'] }}</p>
+<h3>Reviews</h3>
+<!--<ul>-->
+<!--&lt;!&ndash;{% for review in reviews %}&ndash;&gt;-->
+<!--&lt;!&ndash;    <li>{{ review['Review'] }} <small>by {{ review['User'] if review['User'] else '' }}</small></li>&ndash;&gt;-->
+<!--&lt;!&ndash;{% endfor %}&ndash;&gt;-->
+<!--    -->
+<!--</ul>-->
+<ul>
+{% for review in reviews %}
+    <li>{{ review }}</li>
+{% endfor %}
+</ul>
+<h3>Submit a Review</h3>
+<form method="post" action="{{ url_for('reviews.submit_review', app_name=app['App']) }}">
+    <textarea name="content" required></textarea><br>
+    <button type="submit">Submit for Approval</button>
+</form>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul>{% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}</ul>
+  {% endif %}
+{% endwith %}
